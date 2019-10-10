@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Matrix_Inverse
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #Order1{
+                font-size:25px;
+                color:black;
+                text-align:center;
+            }
+            .radio{
+                font-size:20px;
+                color:maroon;
+                text-align:center;
+
+
+            }
+            td{
+                text-align:center;
+                margin:5px;
+                padding:2px;
+                
+                border: 2px solid black;
+
+
+            }
+            tr:nth-child(even) {background-color: #f2f2f2;}
+            .button{
+                text-align:center;
+            }
+            .calculate{
+                padding:5px 30px;
+                font-size:15px;
+            }
+            .Reset{
+                padding:5px 30px;
+                font-size:15px;
+            }
+	    body{
+		height:100%;
+   		width:100%;
+   		background-image:url(matrixxx.jpg); 
+   		background-repeat:no-repeat;
+   		background-size:cover;
+        </style>
+    </head>
+    <body>
+        <p id="Order1"><b>Choose Order of Matrix</b></p>
+        <div class="radio">
+            <input type="radio" id="thxth" name="matrix" onclick="Selection()"><b>3 X 3</b>
+            <input type="radio" id="twxtw" name="matrix" onclick="Selection()"><b>2 X 2</b>
+        </div>
+        <hr width=50% color="black" height=3px>
+        
+        <div style="text-align:center">
+            <table align ="center" id="three">
+                    <tr>
+                            <td><input type="text" id="a1" placeholder="A1" disabled></td>
+                            <td><input type="text" id="a2" placeholder="A2" disabled></td>
+                            <td><input type="text" id="a3" placeholder="A3" disabled></td>
+                    </tr>
+                    <tr>
+                            <td><input type="text" id="b1" placeholder="B1" disabled></td>
+                            <td><input type="text" id="b2" placeholder="B2" disabled></td>
+                            <td><input type="text" id="b3" placeholder="B3" disabled></td>
+                    </tr>
+                    <tr>
+                            <td><input type="text" id="c1" placeholder="C1" disabled></td>
+                            <td><input type="text" id="c2" placeholder="C2" disabled></td>
+                            <td><input type="text" id="c3" placeholder="C3" disabled></td>
+                    </tr>
+            </table>
+        </div>
+        <div style="text-align:center" >
+                <table align ="center" id="two" style="Visibility:hidden">
+                        <tr>
+                                <td><input type="text" id="aa1" placeholder="A1" disabled></td>
+                                <td><input type="text" id="aa2" placeholder="A2" disabled></td>
+                                
+                        </tr>
+                        <tr>
+                                <td><input type="text" id="bb1" placeholder="B1" disabled></td>
+                                <td><input type="text" id="bb2" placeholder="B2" disabled></td>
+                                
+                        </tr>
+                       
+                </table>
+            </div>
+        <script>
+            
+            function Selection()
+            {
+                if(document.getElementById("thxth").checked)
+                {
+                    document.getElementById('three').style.display = "table";
+                    document.getElementById('a1').disabled = false;
+                    document.getElementById('a2').disabled = false;
+                    document.getElementById('a3').disabled = false;
+                    document.getElementById('b1').disabled = false;
+                    document.getElementById('b2').disabled = false;
+                    document.getElementById('b3').disabled = false;
+                    document.getElementById('c1').disabled = false;
+                    document.getElementById('c2').disabled = false;
+                    document.getElementById('c3').disabled = false;
+                    document.getElementById('two').style.display = "none";
+                    document.getElementById('solve').style.visibility="visible";
+                    document.getElementById('reset').style.visibility="visible";
+                }
+                if(document.getElementById("twxtw").checked)
+                {
+                    document.getElementById('three').style.display = "none";
+                    document.getElementById('two').style.display = "table";
+                    document.getElementById('two').style.visibility="visible";
+                    document.getElementById('aa1').disabled = false;
+                    document.getElementById('aa2').disabled = false;
+                    document.getElementById('bb1').disabled = false;
+                    document.getElementById('bb2').disabled = false;
+                    document.getElementById('solve').style.visibility="visible";
+                    document.getElementById('reset').style.visibility="visible";
+                   
+                }
+            }
+            function Clear()
+            {
+                document.getElementById('three').style.display = "table";
+                document.getElementById("a1").value='';
+                document.getElementById("a2").value='';
+                document.getElementById("a3").value='';
+                document.getElementById("b1").value='';
+                document.getElementById("b2").value='';
+                document.getElementById("b3").value='';
+                document.getElementById("c1").value='';
+                document.getElementById("c2").value='';
+                document.getElementById("c3").value='';
+                document.getElementById("aa1").value='';
+                document.getElementById("aa2").value='';
+                document.getElementById("bb1").value='';
+                document.getElementById("bb2").value='';
+                document.getElementById('a1').disabled = true;
+                document.getElementById('a2').disabled = true;
+                document.getElementById('a3').disabled = true;
+                document.getElementById('b1').disabled = true;
+                document.getElementById('b2').disabled = true;
+                document.getElementById('b3').disabled = true;
+                document.getElementById('c1').disabled = true;
+                document.getElementById('c2').disabled = true;
+                document.getElementById('c3').disabled = true;
+                document.getElementById('two').style.visibility="hidden";
+                document.getElementById('solve').style.visibility="hidden";
+                document.getElementById('reset').style.visibility="hidden";
+                document.getElementById("thxth").checked=false;
+                document.getElementById("twxtw").checked=false;
+            }
+            function Inverse()
+            {
+                if(document.getElementById("thxth").checked)
+                {
+                    var a1=document.getElementById("a1").value;
+                    var a2=document.getElementById("a2").value;
+                    var a3=document.getElementById("a3").value;
+                    var b1=document.getElementById("b1").value;
+                    var b2=document.getElementById("b2").value;
+                    var b3=document.getElementById("b3").value;
+                    var c1=document.getElementById("c1").value;
+                    var c2=document.getElementById("c2").value;
+                    var c3=document.getElementById("c3").value;
+                    var mod=Number(a1)*(Number(b2)*Number(c3)-Number(b3)*Number(c2))-Number(a2)*(Number(b1)*Number(c3)-Number(b3)*Number(c1))+Number(a3)*(Number(b1)*Number(c2)-Number(b2)*Number(c1));
+                    if(mod==0)
+                    {
+                        alert("Inverse Not Exist");
+                    }
+                    else
+                    {
+                        document.getElementById("a1").value='';
+                        document.getElementById("a2").value='';
+                        document.getElementById("a3").value='';
+                        document.getElementById("b1").value='';
+                        document.getElementById("b2").value='';
+                        document.getElementById("b3").value='';
+                        document.getElementById("c1").value='';
+                        document.getElementById("c2").value='';
+                        document.getElementById("c3").value='';
+                        document.getElementById("a1").value=(Number(b2)*Number(c3)-Number(b3)*Number(c2))/(mod);
+                        document.getElementById("b1").value=-(Number(b1)*Number(c3)-Number(b3)*Number(c1))/(mod);
+                        document.getElementById("c1").value=(Number(b1)*Number(c2)-Number(b2)*Number(c1))/(mod);
+                        document.getElementById("a2").value=-(Number(a2)*Number(c3)-Number(a3)*Number(c2))/(mod);
+                        document.getElementById("b2").value=(Number(a1)*Number(c3)-Number(a3)*Number(c1))/(mod);
+                        document.getElementById("c2").value=-(Number(a1)*Number(c2)-Number(a2)*Number(c1))/(mod);
+                        document.getElementById("a3").value=(Number(a2)*Number(b3)-Number(a3)*Number(b2))/(mod);
+                        document.getElementById("b3").value=-(Number(a1)*Number(b3)-Number(a3)*Number(b1))/(mod);
+                        document.getElementById("c3").value=(Number(a1)*Number(b2)-Number(a2)*Number(b1))/(mod);
+                    }
+                }
+                if(document.getElementById("twxtw").checked)
+                {
+                    var a1=document.getElementById("aa1").value;
+                    var a2=document.getElementById("aa2").value;
+                    var b1=document.getElementById("bb1").value;
+                    var b2=document.getElementById("bb2").value;
+                    var mod=Number(a1)*Number(b2)-Number(a2)*Number(b1);
+                    if(mod==0)
+                    {
+                        alert("Inverse Not Exist");
+                    }
+                    else
+                    {
+                        document.getElementById("aa1").value='';
+                        document.getElementById("aa2").value='';
+                        document.getElementById("bb1").value='';
+                        document.getElementById("bb2").value='';
+                        document.getElementById("aa1").value=Number(b2)/mod;
+                        document.getElementById("aa2").value=-Number(a2)/mod;
+                        document.getElementById("bb1").value=-Number(b1)/mod;
+                        document.getElementById("bb2").value=Number(a1)/mod;
+                    }
+                }
+            }
+        </script>
+        <div class="button">
+            <br>
+            <button type="submit" class="calculate" style="visibility:hidden" id="solve" onclick="Inverse()">
+                <b>Calculate</b>
+            </button>
+            <button type="submit" class="Reset" style="visibility:hidden" id="reset" onclick="Clear()">
+                    <b>Reset</b>
+            </button>
+        </div>
+
+    </body>
+</html>
